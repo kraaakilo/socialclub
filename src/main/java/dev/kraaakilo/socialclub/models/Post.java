@@ -2,13 +2,13 @@ package dev.kraaakilo.socialclub.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -32,4 +32,6 @@ public class Post {
     private List<Comment> comments;
     @OneToMany(mappedBy = "post")
     private List<Like> likes;
+    @CreationTimestamp
+    private Date created;
 }

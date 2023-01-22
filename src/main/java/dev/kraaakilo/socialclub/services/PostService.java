@@ -5,6 +5,7 @@ import dev.kraaakilo.socialclub.models.Post;
 import dev.kraaakilo.socialclub.repositories.PostRepository;
 import dev.kraaakilo.socialclub.requests.PostRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class PostService {
     }
 
     public List<Post> getAllPosts() {
+        PageRequest pageRequest = PageRequest.of(1,15);
         return this.postRepository.findAll();
     }
 
