@@ -7,6 +7,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -64,4 +66,5 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         body.put("message", "Can't create this resource because it already exists");
         return new ResponseEntity<>(body, HttpStatus.UNPROCESSABLE_ENTITY);
     }
+
 }

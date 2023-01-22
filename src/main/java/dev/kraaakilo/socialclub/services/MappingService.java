@@ -8,6 +8,7 @@ import dev.kraaakilo.socialclub.repositories.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +19,15 @@ import java.util.stream.Collectors;
 public class MappingService {
     private final PostService postService;
     private final ModelMapper modelMapper;
-    public List<PostDTO> getAllPostsDTO() {
-        return this.postService.getAllPosts()
+
+    public List<PostDTO> getAllPostsDTO(int page) {
+        Page<Post> posts = this.postService.getAllPostsWithPagination(page);
+        return posts
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
+
     public PostDTO convertEntityToDTO(Post post) {
         PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         UserDTO userDTO = UserDTO.builder()

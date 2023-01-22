@@ -2,10 +2,13 @@ package dev.kraaakilo.socialclub.services;
 
 import dev.kraaakilo.socialclub.exceptions.DataNotFoundException;
 import dev.kraaakilo.socialclub.models.Post;
+import dev.kraaakilo.socialclub.models.User;
 import dev.kraaakilo.socialclub.repositories.PostRepository;
 import dev.kraaakilo.socialclub.requests.PostRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +35,11 @@ public class PostService {
     public List<Post> getAllPosts() {
         PageRequest pageRequest = PageRequest.of(1,15);
         return this.postRepository.findAll();
+    }
+
+    public Page<Post> getAllPostsWithPagination(int page) {
+        Pageable pageable = PageRequest.of(page,10);
+        return this.postRepository.findAll(pageable);
     }
 
     public Post getPost(Long id) {

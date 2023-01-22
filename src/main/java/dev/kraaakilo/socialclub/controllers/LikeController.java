@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/likes")
+@RequestMapping("/api/v1/likes")
 public class LikeController {
     public final LikeService likeService;
 

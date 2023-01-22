@@ -5,6 +5,8 @@ import dev.kraaakilo.socialclub.exceptions.ResourceAlreadyExistsException;
 import dev.kraaakilo.socialclub.models.User;
 import dev.kraaakilo.socialclub.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
