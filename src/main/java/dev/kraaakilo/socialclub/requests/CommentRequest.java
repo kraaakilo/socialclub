@@ -11,8 +11,7 @@ public class CommentRequest {
                 .media(this.media)
                 .build();
     }
-    @NotNull
-    @NotEmpty
+
     public Long post_id;
     public String content;
     public String media;

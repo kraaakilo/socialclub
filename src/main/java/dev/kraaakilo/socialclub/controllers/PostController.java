@@ -2,6 +2,7 @@ package dev.kraaakilo.socialclub.controllers;
 
 import dev.kraaakilo.socialclub.requests.PostRequest;
 import dev.kraaakilo.socialclub.services.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PostController {
     final PostService postService;
     @PostMapping
-    public void create(@RequestBody PostRequest postRequest){
+    public void create(@Valid @RequestBody PostRequest postRequest){
         this.postService.createPost(postRequest);
     }
 }
