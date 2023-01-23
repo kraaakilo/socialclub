@@ -5,6 +5,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -44,9 +46,18 @@ public class JWTService {
     public String generateToken(User user) {
         return Jwts.builder()
                 .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plusSeconds(10000)))
+                .setExpiration(Date.from(Instant.now().plusSeconds(10000000)))
                 .setId(UUID.randomUUID().toString())
                 .setSubject(user.getEmail())
+                .signWith(this.generateSigningKey())
+                .compact();
+    }
+    public String generateToken(Authentication token) {
+        return Jwts.builder()
+                .setIssuedAt(Date.from(Instant.now()))
+                .setExpiration(Date.from(Instant.now().plusSeconds(10000000)))
+                .setId(UUID.randomUUID().toString())
+                .setSubject(token.getName())
                 .signWith(this.generateSigningKey())
                 .compact();
     }
