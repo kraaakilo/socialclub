@@ -9,10 +9,12 @@ import java.util.List;
 
 @Data
 public class PostDTO {
+    public Long id;
     public String text;
     public String media;
     public UserDTO user;
     public List<Comment> comments;
     public int likesCount;
     public Date created;
+    public boolean likedbyme;
 }

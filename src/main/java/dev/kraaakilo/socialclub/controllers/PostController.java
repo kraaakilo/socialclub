@@ -7,10 +7,10 @@ import dev.kraaakilo.socialclub.services.MappingService;
 import dev.kraaakilo.socialclub.services.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/auth/posts")
 @RequiredArgsConstructor
@@ -22,7 +22,10 @@ public class PostController {
         return this.mappingService.getAllPostsDTO(page);
     }
     @PostMapping
-    public void create(@Valid @RequestBody PostRequest postRequest){
-        this.postService.createPost(postRequest);
+    public ResponseEntity<PostDTO> create(@Valid @RequestBody PostRequest postRequest){
+        PostDTO postDTO = this.mappingService.convertEntityToDTO(
+                this.postService.createPost(postRequest)
+        );
+        return ResponseEntity.ok(postDTO);
     }
 }

@@ -4,10 +4,10 @@ import dev.kraaakilo.socialclub.models.Like;
 import dev.kraaakilo.socialclub.models.Post;
 import dev.kraaakilo.socialclub.models.User;
 import dev.kraaakilo.socialclub.repositories.LikeRepository;
-import dev.kraaakilo.socialclub.repositories.PostRepository;
 import dev.kraaakilo.socialclub.repositories.UserRepository;
 import dev.kraaakilo.socialclub.requests.LikeRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,10 +17,12 @@ import java.util.Optional;
 public class LikeService {
     public final LikeRepository likeRepository;
     public final PostService postService;
-    public final UserService userService;
+    public final UserRepository userRepository;
 
     public boolean addLike(LikeRequest likeRequest) {
-        User user = this.userService.getUser(likeRequest.user_id);
+        User user = this.userRepository.findByEmail(
+                SecurityContextHolder.getContext().getAuthentication().getName()
+        ).orElseThrow();
         Post post = this.postService.getPost(likeRequest.post_id);
         Optional<Like> optionalLike = this.likeRepository.findLikeByPostAndUser(post, user);
         if (optionalLike.isEmpty()) {

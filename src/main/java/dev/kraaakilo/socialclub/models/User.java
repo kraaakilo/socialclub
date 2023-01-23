@@ -32,6 +32,7 @@ public class User implements UserDetails {
     @NotEmpty
     @Size(min = 8)
     private String password;
+    private String profile;
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts;

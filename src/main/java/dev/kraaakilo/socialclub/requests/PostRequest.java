@@ -10,7 +10,6 @@ public class PostRequest {
                 .media(this.media)
                 .build();
     }
-    public Long user_id;
     public String text;
     public String media;
 }

@@ -27,7 +27,7 @@ public class AppAuthProvider implements AuthenticationProvider {
 
         User user = this.userDetailsService.loadUserByUsername(username);
 
-        if (password.equals("password")) {
+        if (password.equals(user.getPassword())) {
             return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
         } else {
             throw new BadCredentialsException("Invalid credentials");

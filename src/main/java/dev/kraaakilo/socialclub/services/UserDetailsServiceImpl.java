@@ -1,5 +1,6 @@
 package dev.kraaakilo.socialclub.services;
 
+import dev.kraaakilo.socialclub.exceptions.DataNotFoundException;
 import dev.kraaakilo.socialclub.models.User;
 import dev.kraaakilo.socialclub.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +14,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public final UserRepository userRepository;
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws DataNotFoundException {
         return this.userRepository.findByEmail(username).orElseThrow(
                 () -> {
-                    throw new UsernameNotFoundException("user not found");
+                    throw new DataNotFoundException("Invalids credentials");
                 }
         );
     }
