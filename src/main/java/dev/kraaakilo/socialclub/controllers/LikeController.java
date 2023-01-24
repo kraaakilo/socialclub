@@ -19,7 +19,6 @@ import java.util.Map;
 @RequestMapping("/api/v1/auth/likes")
 public class LikeController {
     public final LikeService likeService;
-
     @PostMapping
     public ResponseEntity<Object> like(@RequestBody @Valid LikeRequest likeRequest) {
         Map<String, Object> response = new HashMap<>();

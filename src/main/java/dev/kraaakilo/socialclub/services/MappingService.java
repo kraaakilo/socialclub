@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 public class MappingService {
     private final PostService postService;
     private final ModelMapper modelMapper;
-private final UserRepository userRepository;
     private final LikeRepository likeRepository;
+    private final AuthenticatedUserModel auth;
 
     public List<PostDTO> getAllPostsDTO(int page) {
         Page<Post> posts = this.postService.getAllPostsWithPagination(page);
@@ -44,11 +44,7 @@ private final UserRepository userRepository;
         postDTO.setUser(userDTO);
         postDTO.setLikesCount(post.getLikes() == null ? 0 : post.getLikes().size());
         postDTO.setLikedbyme(
-                likeRepository.findLikeByPostAndUser(
-                        post,
-                        this.userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
-                                .orElseThrow()
-                ).isPresent()
+                likeRepository.findLikeByPostAndUser(post, auth.getUser()).isPresent()
         );
         return postDTO;
     }
