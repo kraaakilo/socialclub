@@ -1,8 +1,5 @@
-**
-
 ## SocialClub
 
-**
 API to provide a basic social network application.
 Integrated publishing system, like and comments.
 The system uses a JWT authentication system to ensure user authentication.
